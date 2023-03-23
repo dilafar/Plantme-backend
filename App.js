@@ -16,7 +16,7 @@ export default function App() {
     <StatusBar style='dark'/>
     <NavigationContainer>
          <Stack.Navigator>
-             <Stack.Screen name="PlatMe - Admin" component={ShowAllInquiriesScreen} />
+             <Stack.Screen name="PlatMe Inquiries" component={ShowAllInquiriesScreen} />
              <Stack.Screen name="Show Inquiry" component={ShowSingleInquiryScreen} />
              <Stack.Screen name="Create Inquiry" component={AddInquiryScreen} />
          </Stack.Navigator>

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, Alert } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { View, Text, StyleSheet, Button, Alert, navigation } from 'react-native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
 const ShowSingleInquiryScreen = () => {
     const route = useRoute();
+    const navigation = useNavigation();
     const [inquiry, setInquiry] = useState(null);
 
     const fetchInquiry = async () => {
@@ -39,17 +40,27 @@ const ShowSingleInquiryScreen = () => {
                 status: false,
             });
             setInquiry(response.data);
-            Alert.alert('Success', 'Inquiry has been submitted successfully');
+            Alert.alert('Success', 'Inquiry has been Closed successfully');
             fetchInquiry();
         } catch (error) {
             console.error(error);
         }
     }
 
-    // function to handle deleting the inquiry
-    const handleDeleteInquiry = () => {
+    const handleDeleteInquiry = async () => {
         // make API request to delete the inquiry
-        // navigate back to the ShowAllInquiryScreen
+        try {
+            // send delete request to the backend API to delete the inquiry
+            await fetch(`https://a898-175-157-47-187.ngrok.io/api/inquiry/${inquiry._id}`, {
+              method: 'DELETE'
+            });
+        
+            // redirect the user back to the show all inquiries screen after deleting the inquiry
+            navigation.navigate('PlatMe Inquiries');
+            Alert.alert('Error', 'Inquiry has been deleted successfully');
+          } catch (error) {
+            console.error('Error deleting inquiry:', error);
+          }
     }
 
     return (

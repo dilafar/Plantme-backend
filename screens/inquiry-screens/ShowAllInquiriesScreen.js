@@ -2,16 +2,20 @@
 
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 
 const ShowAllInquiriesScreen = () => {
     const navigation = useNavigation();
     const [inquiries, setInquiries] = useState([]);
+    const [statusFilter, setStatusFilter] = useState(null);
+    const isFocused = useIsFocused();
 
     useEffect(() => {
-        // Fetch all inquiries from backend API
-        fetchInquiries();
-    }, []);
+        if (isFocused) {
+            fetchInquiries();
+            console.log('Screen is focused, refreshing data...');
+        }
+    }, [isFocused]);
 
     const fetchInquiries = async () => {
         // Fetch all inquiries from backend API
@@ -39,17 +43,36 @@ const ShowAllInquiriesScreen = () => {
     const renderInquiryItem = ({ item }) => {
         return (
             <TouchableOpacity onPress={() => handleInquiryPress(item._id)} style={styles.item}>
-                <Text style={styles.itemTitle}>{item.customerName}</Text>
-                <Text>{item.type}</Text>
-                <Text>{item.status}</Text>
+                <Text style={styles.itemTitle}>{item.type}</Text>
+                <View style={styles.containerView}>
+                    <View style={styles.left}>
+                    <Text>{item.customerName}</Text>
+                    </View>
+                    <View style={styles.right}>
+                    <Text>{item.status ? 'Open' : 'Closed'}</Text>
+                    </View>
+                </View>
             </TouchableOpacity>
         );
     };
+
+    const handleFilter = (status) => {
+        setStatusFilter(status);
+    };
+
+    const filteredInquiries = statusFilter
+        ? inquiries.filter((inquiry) => inquiry.status === statusFilter)
+        : inquiries;
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>All Inquiries</Text>
             <TouchableOpacity style={styles.button} onPress={handleRefresh}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Button title="All" onPress={() => handleFilter(null)} />
+                    <Button title="Closed" onPress={() => handleFilter(false)} />
+                    <Button title="Open" onPress={() => handleFilter(true)} />
+                </View>
                 <Text style={styles.buttonText}>Refrsh</Text>
             </TouchableOpacity>
             <View style={styles.horizontalLine} />
@@ -57,7 +80,7 @@ const ShowAllInquiriesScreen = () => {
             <View style={styles.horizontalLine} />
             {inquiries.length > 0 ? (
                 <FlatList
-                    data={inquiries}
+                    data={filteredInquiries}
                     renderItem={renderInquiryItem}
                     keyExtractor={(item) => item._id}
                     style={styles.list}
@@ -80,7 +103,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 20,
         textAlign: "center",
-
     },
     list: {
         flexGrow: 0,
@@ -95,6 +117,7 @@ const styles = StyleSheet.create({
     itemTitle: {
         fontWeight: 'bold',
         marginBottom: 5,
+        
     },
     horizontalLine: {
         borderBottomColor: 'black',
@@ -114,6 +137,19 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',
+    },
+    containerView: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    left: {
+        flex: 1,
+        marginRight: 10,
+    },
+    right: {
+        flex: 1,
+        marginLeft: "70%",
     },
 });
 
