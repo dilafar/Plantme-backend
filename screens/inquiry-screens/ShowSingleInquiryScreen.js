@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, Alert, navigation } from 'react-native';
+import { View, Text, StyleSheet, Button, Alert, navigation, ImageBackground } from 'react-native';
 import { useRoute, useNavigation,useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
 
@@ -115,6 +115,10 @@ const ShowSingleInquiryScreen = () => {
     };
 
     return (
+        <ImageBackground
+                style={styles.backgroundImage}
+                source={require('../../assets/bg-single.jpg')}
+            >
         <View style={styles.container}>
             <Text style={styles.title}>{inquiry.type}</Text>
             <View style={styles.tableContainer}>
@@ -167,6 +171,7 @@ const ShowSingleInquiryScreen = () => {
             </View>
             <View style={styles.horizontalLine} />
         </View>
+        </ImageBackground>
     );
 };
 
@@ -230,6 +235,10 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         width: '45%',
+    },
+    backgroundImage: {
+        flex: 1,
+        resizeMode: 'stretch', // or 'stretch'
     },
 });
 

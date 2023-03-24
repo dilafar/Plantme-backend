@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, Button, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button, Alert, ImageBackground } from 'react-native';
 import axios from 'axios';
 import ModalDropdown from 'react-native-modal-dropdown';
 
@@ -46,6 +46,10 @@ const UpdateInquiryScreen = ({ route, navigation }) => {
     };
 
     return (
+        <ImageBackground
+        style={styles.backgroundImage}
+        source={require('../../assets/bg-all.png')}
+    >
         <View style={styles.container}>
             <Text style={styles.title}>Anything to Change?</Text>
             <TextInput
@@ -85,6 +89,7 @@ const UpdateInquiryScreen = ({ route, navigation }) => {
             />
             <Button title="Update" onPress={handleUpdate} style={styles.button} />
         </View>
+        </ImageBackground>
     );
 };
 
@@ -92,7 +97,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: '#fff',
     },
     title: {
         fontSize: 24,
@@ -132,6 +136,10 @@ const styles = StyleSheet.create({
     },
     dropdown: {
         width: '100%',
+    },
+    backgroundImage: {
+        flex: 1,
+        resizeMode: 'stretch', // or 'stretch'
     },
 });
 

@@ -1,8 +1,12 @@
 import React from 'react';
-import { View, Text, Linking, StyleSheet } from 'react-native';
+import { View, Text, Linking, StyleSheet, ImageBackground } from 'react-native';
 
 const ViewInquiryPoliciesScreen = () => {
     return (
+        <ImageBackground
+        style={styles.backgroundImage}
+        source={require('../../assets/bg-all.png')}
+    >
         <View style={styles.container}>
             <Text style={styles.title}>Inquiry Policies</Text>
             <Text style={styles.paragraph}>
@@ -30,6 +34,7 @@ const ViewInquiryPoliciesScreen = () => {
                 Read our terms of service
             </Text>
         </View>
+        </ImageBackground>
     );
 };
 
@@ -58,6 +63,10 @@ const styles = StyleSheet.create({
         color: 'blue',
         textDecorationLine: 'underline',
         fontSize: 16,
+    },
+    backgroundImage: {
+        flex: 1,
+        resizeMode: 'stretch', // or 'stretch'
     },
 });
 
