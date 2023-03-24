@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Alert, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Alert, TouchableOpacity, ImageBackground } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import ModalDropdown from 'react-native-modal-dropdown';
 import axios from 'axios';
@@ -13,7 +13,7 @@ export default function AddInquiryScreen({ navigation }) {
 
     const handleSubmit = async () => {
         try {
-            await axios.post('https://a898-175-157-47-187.ngrok.io/api/inquiry/', {
+            await axios.post('https://plantme-backend.onrender.com/api/inquiry/', {
                 customerName,
                 customerEmailAddress,
                 customerMobileNumber,
@@ -34,6 +34,10 @@ export default function AddInquiryScreen({ navigation }) {
       };
 
     return (
+        <ImageBackground
+                style={styles.backgroundImage}
+                source={require('../../assets/bg-add.jpg')}
+            >
         <View style={styles.container}>
             <Text style={styles.title}>We'll contact you!</Text>
             <Input
@@ -84,6 +88,7 @@ export default function AddInquiryScreen({ navigation }) {
             <Button title="Submit your Inquiry" onPress={handleSubmit} style={styles.button} />
             
         </View>
+        </ImageBackground>
     );
 }
 
@@ -91,7 +96,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: '#fff',
     },
     title: {
         fontSize: 24,
@@ -136,6 +140,10 @@ const styles = StyleSheet.create({
         borderBottomColor: 'black',
         borderBottomWidth: 1,
         marginVertical: 10,
+    },
+    backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover', // or 'stretch'
     },
 
 });

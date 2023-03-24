@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, Alert, navigation } from 'react-native';
-import { useRoute, useNavigation } from '@react-navigation/native';
+import { View, Text, StyleSheet, Button, Alert, navigation, ImageBackground } from 'react-native';
+import { useRoute, useNavigation,useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
 
 const ShowSingleInquiryScreen = () => {
     const route = useRoute();
     const navigation = useNavigation();
     const [inquiry, setInquiry] = useState(null);
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+        if (isFocused) {
+            fetchInquiry();
+            console.log('Screen is focused, refreshing data...');
+        }
+    }, [isFocused]);
 
     const fetchInquiry = async () => {
         try {
             const { id } = route.params;
             const response = await axios.get(
-                `https://a898-175-157-47-187.ngrok.io/api/inquiry/${id}`
+                `https://plantme-backend.onrender.com/api/inquiry/${id}`
             );
             setInquiry(response.data.data);
         } catch (error) {
             console.error(error);
         }
     };
-
-    useEffect(() => {
-        fetchInquiry();
-    }, []);
 
     if (!inquiry) {
         return (
@@ -32,10 +36,10 @@ const ShowSingleInquiryScreen = () => {
         );
     }
 
-    const handleCloseInquiry = async () => {
+    const closeInquiry = async () => {
         // make API request to update the status of the inquiry
         try {
-            const response = await axios.put(`https://a898-175-157-47-187.ngrok.io/api/inquiry/${inquiry._id}`, {
+            const response = await axios.put(`https://plantme-backend.onrender.com/api/inquiry/${inquiry._id}`, {
                 ...inquiry,
                 status: false,
             });
@@ -51,7 +55,7 @@ const ShowSingleInquiryScreen = () => {
         // make API request to delete the inquiry
         try {
             // send delete request to the backend API to delete the inquiry
-            await fetch(`https://a898-175-157-47-187.ngrok.io/api/inquiry/${inquiry._id}`, {
+            await fetch(`https://plantme-backend.onrender.com/api/inquiry/${inquiry._id}`, {
                 method: 'DELETE'
             });
 
@@ -84,12 +88,37 @@ const ShowSingleInquiryScreen = () => {
         );
     };
 
+    const handleCloseInquiry = () => {
+        Alert.alert(
+            'Confirm Closing',
+            'Are you sure you want to close this inquiry?',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Close',
+                    style: 'destructive',
+                    onPress: () => {
+                        closeInquiry();
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
+    };
+
     const handleUpdatePress = (id) => {
         // Navigate to ShowSingleInquiryScreen with the inquiry ID
         navigation.navigate('Update Inquiry', { id: id });
     };
 
     return (
+        <ImageBackground
+                style={styles.backgroundImage}
+                source={require('../../assets/bg-single.jpg')}
+            >
         <View style={styles.container}>
             <Text style={styles.title}>{inquiry.type}</Text>
             <View style={styles.tableContainer}>
@@ -142,6 +171,7 @@ const ShowSingleInquiryScreen = () => {
             </View>
             <View style={styles.horizontalLine} />
         </View>
+        </ImageBackground>
     );
 };
 
@@ -205,6 +235,10 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         width: '45%',
+    },
+    backgroundImage: {
+        flex: 1,
+        resizeMode: 'stretch', // or 'stretch'
     },
 });
 
