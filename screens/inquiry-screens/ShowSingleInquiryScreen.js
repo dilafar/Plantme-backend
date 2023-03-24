@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, Alert, navigation } from 'react-native';
-import { useRoute, useNavigation } from '@react-navigation/native';
+import { useRoute, useNavigation,useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
 
 const ShowSingleInquiryScreen = () => {
     const route = useRoute();
     const navigation = useNavigation();
     const [inquiry, setInquiry] = useState(null);
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+        if (isFocused) {
+            fetchInquiry();
+            console.log('Screen is focused, refreshing data...');
+        }
+    }, [isFocused]);
 
     const fetchInquiry = async () => {
         try {
@@ -20,10 +28,6 @@ const ShowSingleInquiryScreen = () => {
         }
     };
 
-    useEffect(() => {
-        fetchInquiry();
-    }, []);
-
     if (!inquiry) {
         return (
             <View style={styles.container}>
@@ -32,7 +36,7 @@ const ShowSingleInquiryScreen = () => {
         );
     }
 
-    const handleCloseInquiry = async () => {
+    const closeInquiry = async () => {
         // make API request to update the status of the inquiry
         try {
             const response = await axios.put(`https://plantme-backend.onrender.com/api/inquiry/${inquiry._id}`, {
@@ -77,6 +81,27 @@ const ShowSingleInquiryScreen = () => {
                     style: 'destructive',
                     onPress: () => {
                         deleteInquiry();
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
+    };
+
+    const handleCloseInquiry = () => {
+        Alert.alert(
+            'Confirm Closing',
+            'Are you sure you want to close this inquiry?',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Close',
+                    style: 'destructive',
+                    onPress: () => {
+                        closeInquiry();
                     },
                 },
             ],
