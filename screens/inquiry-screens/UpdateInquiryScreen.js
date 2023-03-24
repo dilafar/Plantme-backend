@@ -1,54 +1,66 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, Alert, TouchableOpacity } from 'react-native';
-import { Input, Button } from 'react-native-elements';
-import ModalDropdown from 'react-native-modal-dropdown';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TextInput, Button, Alert } from 'react-native';
 import axios from 'axios';
+import ModalDropdown from 'react-native-modal-dropdown';
 
-export default function AddInquiryScreen({ navigation }) {
+const UpdateInquiryScreen = ({ route, navigation }) => {
     const [customerName, setCustomerName] = useState('');
     const [customerEmailAddress, setCustomerEmailAddress] = useState('');
     const [customerMobileNumber, setCustomerMobileNumber] = useState('');
     const [type, setType] = useState('');
     const [customerMessage, setCustomerMessage] = useState('');
 
-    const handleSubmit = async () => {
+    const { id } = route.params;
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
         try {
-            await axios.post('https://a898-175-157-47-187.ngrok.io/api/inquiry/', {
+            const response = await axios.get(`https://a898-175-157-47-187.ngrok.io/api/inquiry/${id}`);
+            setCustomerName(response.data.data.customerName);
+            setCustomerEmailAddress(response.data.data.customerEmailAddress);
+            setCustomerMobileNumber(response.data.data.customerMobileNumber);
+            setType(response.data.data.type);
+            setCustomerMessage(response.data.data.customerMessage);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleUpdate = async () => {
+        try {
+            await axios.put(`https://a898-175-157-47-187.ngrok.io/api/inquiry/${id}`, {
                 customerName,
                 customerEmailAddress,
                 customerMobileNumber,
                 type,
                 customerMessage,
-                status: "true",
             });
-            Alert.alert('Success', 'Inquiry has been submitted successfully');
-            navigation.goBack();
+            Alert.alert('Inquiry updated successfully!');
+            navigation.navigate('Show Inquiry', { id });
         } catch (error) {
             console.error(error);
-            Alert.alert('Error', 'Failed to submit inquiry. Please try again');
         }
     };
 
-    const goToPolicyScreen = () => {
-        navigation.navigate('Inquiry Policies');
-      };
-
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>We'll contact you!</Text>
-            <Input
+            <Text style={styles.title}>Anything to Change?</Text>
+            <TextInput
                 placeholder="Customer Name"
                 value={customerName}
                 onChangeText={setCustomerName}
                 style={styles.input}
             />
-            <Input
+            <TextInput
                 placeholder="Email Address"
                 value={customerEmailAddress}
                 onChangeText={setCustomerEmailAddress}
                 style={styles.input}
             />
-            <Input
+            <TextInput
                 placeholder="Mobile Number"
                 value={customerMobileNumber}
                 onChangeText={setCustomerMobileNumber}
@@ -61,31 +73,20 @@ export default function AddInquiryScreen({ navigation }) {
                 textStyle={{ fontSize: 16 }}
                 dropdownTextStyle={{ fontSize: 16 }}
                 dropdownStyle={styles.dropdown}
-                defaultValue={'Select Type'}
+                defaultValue={type}
             />
-            <Input
+            <TextInput
                 placeholder="Message"
                 value={customerMessage}
                 onChangeText={setCustomerMessage}
-                style={styles.input}
+                style={[styles.input, styles.messageInput]}
                 multiline={true}
-                numberOfLines={3}
+                numberOfLines={4}
             />
-            <Text style={{ fontSize: 18 }}>
-                By submitting a inquiry, you agree to our{' '}
-                <TouchableOpacity onPress={goToPolicyScreen}>
-                    <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>
-                        Terms and Conditions - Inquiry Policies
-                    </Text>
-                </TouchableOpacity>
-                .
-            </Text>
-            <View style={styles.horizontalLine} />
-            <Button title="Submit your Inquiry" onPress={handleSubmit} style={styles.button} />
-            
+            <Button title="Update" onPress={handleUpdate} style={styles.button} />
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -117,8 +118,8 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         borderColor: 'gray',
         marginBottom: 10,
-        marginLeft: 10,
-        width: '95%',
+        marginLeft: 0,
+        width: '100%',
     },
     switchContainer: {
         flexDirection: 'row',
@@ -132,10 +133,6 @@ const styles = StyleSheet.create({
     dropdown: {
         width: '100%',
     },
-    horizontalLine: {
-        borderBottomColor: 'black',
-        borderBottomWidth: 1,
-        marginVertical: 10,
-    },
-
 });
+
+export default UpdateInquiryScreen;

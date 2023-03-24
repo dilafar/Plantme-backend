@@ -47,21 +47,47 @@ const ShowSingleInquiryScreen = () => {
         }
     }
 
-    const handleDeleteInquiry = async () => {
+    const deleteInquiry = async () => {
         // make API request to delete the inquiry
         try {
             // send delete request to the backend API to delete the inquiry
             await fetch(`https://a898-175-157-47-187.ngrok.io/api/inquiry/${inquiry._id}`, {
-              method: 'DELETE'
+                method: 'DELETE'
             });
-        
+
             // redirect the user back to the show all inquiries screen after deleting the inquiry
             navigation.navigate('PlatMe Inquiries');
             Alert.alert('Error', 'Inquiry has been deleted successfully');
-          } catch (error) {
+        } catch (error) {
             console.error('Error deleting inquiry:', error);
-          }
+        }
     }
+
+    const handleDeleteInquiry = () => {
+        Alert.alert(
+            'Confirm Deletion',
+            'Are you sure you want to delete this inquiry?',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Delete',
+                    style: 'destructive',
+                    onPress: () => {
+                        deleteInquiry();
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
+    };
+
+    const handleUpdatePress = (id) => {
+        // Navigate to ShowSingleInquiryScreen with the inquiry ID
+        navigation.navigate('Update Inquiry', { id: id });
+    };
 
     return (
         <View style={styles.container}>
@@ -93,8 +119,14 @@ const ShowSingleInquiryScreen = () => {
                 <Text style={styles.messageText}>{inquiry.customerMessage}</Text>
             </View>
 
-            <View style={styles.horizontalLine} />
 
+            <View style={styles.horizontalLine} />
+            <Button
+                title="Update Inquiry"
+                onPress={() => handleUpdatePress(inquiry._id)}
+                buttonStyle={styles.closeButton}
+            />
+            <View style={styles.horizontalLine} />
             <View style={styles.buttonsContainer}>
                 <Button
                     title="Close Inquiry"
@@ -108,6 +140,7 @@ const ShowSingleInquiryScreen = () => {
                     buttonStyle={styles.deleteButton}
                 />
             </View>
+            <View style={styles.horizontalLine} />
         </View>
     );
 };

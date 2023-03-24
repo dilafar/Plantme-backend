@@ -46,10 +46,10 @@ const ShowAllInquiriesScreen = () => {
                 <Text style={styles.itemTitle}>{item.type}</Text>
                 <View style={styles.containerView}>
                     <View style={styles.left}>
-                    <Text>{item.customerName}</Text>
+                    <Text>{item.status ? 'Open' : 'Closed'}</Text>
                     </View>
                     <View style={styles.right}>
-                    <Text>{item.status ? 'Open' : 'Closed'}</Text>
+                    <Text>{item.customerName}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -117,7 +117,6 @@ const styles = StyleSheet.create({
     itemTitle: {
         fontWeight: 'bold',
         marginBottom: 5,
-        
     },
     horizontalLine: {
         borderBottomColor: 'black',
@@ -149,7 +148,7 @@ const styles = StyleSheet.create({
     },
     right: {
         flex: 1,
-        marginLeft: "70%",
+        marginLeft: "10%",
     },
 });
 
