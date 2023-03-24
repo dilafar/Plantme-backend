@@ -12,6 +12,18 @@ const UpdateInquiryScreen = ({ route, navigation }) => {
 
     const { id } = route.params;
 
+    const validateName = (name) => {
+        return /^[A-Za-z\s]+$/.test(name);
+    };
+
+    const validateEmail = (email) => {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    };
+
+    const validateMobileNumber = (mobileNumber) => {
+        return /^[0-9]{10}$/.test(mobileNumber);
+    };
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -30,6 +42,32 @@ const UpdateInquiryScreen = ({ route, navigation }) => {
     };
 
     const handleUpdate = async () => {
+
+        if (!customerName || !validateName(customerName)) {
+            alert('Please enter a valid name');
+            return;
+        }
+
+        if (!customerEmailAddress || !validateEmail(customerEmailAddress)) {
+            alert('Please enter a valid email address');
+            return;
+        }
+
+        if (!customerMobileNumber || !validateMobileNumber(customerMobileNumber)) {
+            alert('Please enter a valid mobile number');
+            return;
+        }
+
+        if (!type) {
+            alert('Please select a type');
+            return;
+        }
+
+        if (!customerMessage) {
+            alert('Please enter a message');
+            return;
+        }
+
         try {
             await axios.put(`https://plantme-backend.onrender.com/api/inquiry/${id}`, {
                 customerName,
@@ -57,18 +95,24 @@ const UpdateInquiryScreen = ({ route, navigation }) => {
                 value={customerName}
                 onChangeText={setCustomerName}
                 style={styles.input}
+                validate={(value) => validateName(value)}
+                required
             />
             <TextInput
                 placeholder="Email Address"
                 value={customerEmailAddress}
                 onChangeText={setCustomerEmailAddress}
+                validate={(value) => validateEmail(value)}
                 style={styles.input}
+                required
             />
             <TextInput
                 placeholder="Mobile Number"
                 value={customerMobileNumber}
                 onChangeText={setCustomerMobileNumber}
+                validate={(value) => validateMobileNumber(value)}
                 style={styles.input}
+                required
             />
             <ModalDropdown
                 options={['Product Inquiry', 'Service Inquiry', 'General Inquiry']}
@@ -78,6 +122,7 @@ const UpdateInquiryScreen = ({ route, navigation }) => {
                 dropdownTextStyle={{ fontSize: 16 }}
                 dropdownStyle={styles.dropdown}
                 defaultValue={type}
+                required
             />
             <TextInput
                 placeholder="Message"
@@ -86,6 +131,7 @@ const UpdateInquiryScreen = ({ route, navigation }) => {
                 style={[styles.input, styles.messageInput]}
                 multiline={true}
                 numberOfLines={4}
+                required
             />
             <Button title="Update" onPress={handleUpdate} style={styles.button} />
         </View>

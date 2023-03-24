@@ -11,7 +11,45 @@ export default function AddInquiryScreen({ navigation }) {
     const [type, setType] = useState('');
     const [customerMessage, setCustomerMessage] = useState('');
 
+    const validateName = (name) => {
+        return /^[A-Za-z\s]+$/.test(name);
+    };
+
+    const validateEmail = (email) => {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    };
+
+    const validateMobileNumber = (mobileNumber) => {
+        return /^[0-9]{10}$/.test(mobileNumber);
+    };
+
     const handleSubmit = async () => {
+
+        if (!customerName || !validateName(customerName)) {
+            alert('Please enter a valid name');
+            return;
+        }
+
+        if (!customerEmailAddress || !validateEmail(customerEmailAddress)) {
+            alert('Please enter a valid email address');
+            return;
+        }
+
+        if (!customerMobileNumber || !validateMobileNumber(customerMobileNumber)) {
+            alert('Please enter a valid mobile number');
+            return;
+        }
+
+        if (!type) {
+            alert('Please select a type');
+            return;
+        }
+
+        if (!customerMessage) {
+            alert('Please enter a message');
+            return;
+        }
+
         try {
             await axios.post('https://plantme-backend.onrender.com/api/inquiry/', {
                 customerName,
@@ -31,63 +69,71 @@ export default function AddInquiryScreen({ navigation }) {
 
     const goToPolicyScreen = () => {
         navigation.navigate('Inquiry Policies');
-      };
+    };
 
     return (
         <ImageBackground
-                style={styles.backgroundImage}
-                source={require('../../assets/bg-add.jpg')}
-            >
-        <View style={styles.container}>
-            <Text style={styles.title}>We'll contact you!</Text>
-            <Input
-                placeholder="Customer Name"
-                value={customerName}
-                onChangeText={setCustomerName}
-                style={styles.input}
-            />
-            <Input
-                placeholder="Email Address"
-                value={customerEmailAddress}
-                onChangeText={setCustomerEmailAddress}
-                style={styles.input}
-            />
-            <Input
-                placeholder="Mobile Number"
-                value={customerMobileNumber}
-                onChangeText={setCustomerMobileNumber}
-                style={styles.input}
-            />
-            <ModalDropdown
-                options={['Product Inquiry', 'Service Inquiry', 'General Inquiry']}
-                onSelect={(index, value) => setType(value)}
-                style={styles.modelDropdown}
-                textStyle={{ fontSize: 16 }}
-                dropdownTextStyle={{ fontSize: 16 }}
-                dropdownStyle={styles.dropdown}
-                defaultValue={'Select Type'}
-            />
-            <Input
-                placeholder="Message"
-                value={customerMessage}
-                onChangeText={setCustomerMessage}
-                style={styles.input}
-                multiline={true}
-                numberOfLines={3}
-            />
-            <Text style={{ fontSize: 18 }}>
-                By submitting a inquiry, you agree to our{' '}
-                <TouchableOpacity onPress={goToPolicyScreen}>
-                    <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>
-                        Terms and Conditions - Inquiry Policies
-                    </Text>
-                </TouchableOpacity>
-                .
-            </Text>
-            <View style={styles.horizontalLine} />
-            <Button title="Submit your Inquiry" onPress={handleSubmit} style={styles.button} />
-            
-        </View>
+            style={styles.backgroundImage}
+            source={require('../../assets/bg-add.jpg')}
+        >
+            <View style={styles.container}>
+                <Text style={styles.title}>We'll contact you!</Text>
+                <Input
+                    placeholder="Customer Name"
+                    value={customerName}
+                    onChangeText={setCustomerName}
+                    style={styles.input}
+                    validate={(value) => validateName(value)}
+                    required
+                />
+                <Input
+                    placeholder="Email Address"
+                    value={customerEmailAddress}
+                    onChangeText={setCustomerEmailAddress}
+                    style={styles.input}
+                    validate={(value) => validateEmail(value)}
+                    required
+                />
+                <Input
+                    placeholder="Mobile Number"
+                    value={customerMobileNumber}
+                    onChangeText={setCustomerMobileNumber}
+                    style={styles.input}
+                    validate={(value) => validateMobileNumber(value)}
+                    required
+                />
+                <ModalDropdown
+                    options={['Product Inquiry', 'Service Inquiry', 'General Inquiry']}
+                    onSelect={(index, value) => setType(value)}
+                    style={styles.modelDropdown}
+                    textStyle={{ fontSize: 16 }}
+                    dropdownTextStyle={{ fontSize: 16 }}
+                    dropdownStyle={styles.dropdown}
+                    defaultValue={'Select Type'}
+                    required
+                />
+                <Input
+                    placeholder="Message"
+                    value={customerMessage}
+                    onChangeText={setCustomerMessage}
+                    style={styles.input}
+                    multiline={true}
+                    numberOfLines={3}
+                    required
+                />
+                <Text style={{ fontSize: 18 }}>
+                    By submitting a inquiry, you agree to our{' '}
+                    <TouchableOpacity onPress={goToPolicyScreen}>
+                        <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>
+                            Terms and Conditions - Inquiry Policies
+                        </Text>
+                    </TouchableOpacity>
+                    .
+                </Text>
+                <View style={styles.horizontalLine} />
+                <Button title="Submit your Inquiry" onPress={handleSubmit} style={styles.button} />
+
+            </View>
         </ImageBackground>
     );
 }
