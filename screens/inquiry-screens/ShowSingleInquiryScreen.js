@@ -12,7 +12,7 @@ const ShowSingleInquiryScreen = () => {
         try {
             const { id } = route.params;
             const response = await axios.get(
-                `https://a898-175-157-47-187.ngrok.io/api/inquiry/${id}`
+                `https://plantme-backend.onrender.com/api/inquiry/${id}`
             );
             setInquiry(response.data.data);
         } catch (error) {
@@ -35,7 +35,7 @@ const ShowSingleInquiryScreen = () => {
     const handleCloseInquiry = async () => {
         // make API request to update the status of the inquiry
         try {
-            const response = await axios.put(`https://a898-175-157-47-187.ngrok.io/api/inquiry/${inquiry._id}`, {
+            const response = await axios.put(`https://plantme-backend.onrender.com/api/inquiry/${inquiry._id}`, {
                 ...inquiry,
                 status: false,
             });
@@ -51,7 +51,7 @@ const ShowSingleInquiryScreen = () => {
         // make API request to delete the inquiry
         try {
             // send delete request to the backend API to delete the inquiry
-            await fetch(`https://a898-175-157-47-187.ngrok.io/api/inquiry/${inquiry._id}`, {
+            await fetch(`https://plantme-backend.onrender.com/api/inquiry/${inquiry._id}`, {
                 method: 'DELETE'
             });
 

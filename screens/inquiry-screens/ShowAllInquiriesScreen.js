@@ -19,7 +19,7 @@ const ShowAllInquiriesScreen = () => {
 
     const fetchInquiries = async () => {
         // Fetch all inquiries from backend API
-        fetch('https://a898-175-157-47-187.ngrok.io/api/inquiry/')
+        fetch('https://plantme-backend.onrender.com/api/inquiry/')
             .then(response => response.json())
             .then(data => setInquiries(data.data))
             .catch(error => console.error(error));

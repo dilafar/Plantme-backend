@@ -18,7 +18,7 @@ const UpdateInquiryScreen = ({ route, navigation }) => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(`https://a898-175-157-47-187.ngrok.io/api/inquiry/${id}`);
+            const response = await axios.get(`https://plantme-backend.onrender.com/api/inquiry/${id}`);
             setCustomerName(response.data.data.customerName);
             setCustomerEmailAddress(response.data.data.customerEmailAddress);
             setCustomerMobileNumber(response.data.data.customerMobileNumber);
@@ -31,7 +31,7 @@ const UpdateInquiryScreen = ({ route, navigation }) => {
 
     const handleUpdate = async () => {
         try {
-            await axios.put(`https://a898-175-157-47-187.ngrok.io/api/inquiry/${id}`, {
+            await axios.put(`https://plantme-backend.onrender.com/api/inquiry/${id}`, {
                 customerName,
                 customerEmailAddress,
                 customerMobileNumber,

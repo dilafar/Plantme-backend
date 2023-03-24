@@ -13,7 +13,7 @@ export default function AddInquiryScreen({ navigation }) {
 
     const handleSubmit = async () => {
         try {
-            await axios.post('https://a898-175-157-47-187.ngrok.io/api/inquiry/', {
+            await axios.post('https://plantme-backend.onrender.com/api/inquiry/', {
                 customerName,
                 customerEmailAddress,
                 customerMobileNumber,
