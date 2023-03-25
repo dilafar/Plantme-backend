@@ -26,7 +26,7 @@ export const Login = ({ navigation }) => {
   useEffect(() => {
     const validate = async () => {
       const token = await AsyncStorage.getItem("token");
-      if (token) navigation.navigate("Users");
+      if (token) navigation.navigate("Dashboard");
     };
     validate();
     reset();
@@ -47,7 +47,7 @@ export const Login = ({ navigation }) => {
           if (res?.status === 200 && res?.data?.data?.token) {
             await AsyncStorage.setItem("token", res.data.data.token);
             reset();
-            navigation.navigate("PlatMe Inquiries");
+            navigation.navigate("Dashboard");
           } else {
             alert("Invalid username or password.");
           }
