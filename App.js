@@ -10,6 +10,8 @@ import UpdateInquiryScreen from "./screens/inquiry-screens/UpdateInquiryScreen";
 import ViewInquiryPoliciesScreen from "./screens/inquiry-screens/ViewInquiryPoliciesScreen";
 import CategoriesScreenCustomer from "./screens/CategoriesScreenCustomer";
 import PlantOverviewCustomer from "./screens/PlantOverviewCustomer";
+import DeliveryForm from "./components/Delivery/deliveryDataSubmit";
+import DeliveryList from "./components/Delivery/deliveryList";
 import AddIcon from "./components/AddIcon";
 import AddPlants from "./screens/AddPlants";
 import { Login } from "./screens/Login";
@@ -31,10 +33,6 @@ export default function App() {
             component={CategoriesScreen}
             options={({ navigation }) => ({
               title: "Plant Categories",
-              headerStyle: {
-                backgroundColor: "blue",
-              },
-              headerTintColor: "white",
               headerRight: () => (
                 <AddIcon
                   onPress={() => {
@@ -82,6 +80,20 @@ export default function App() {
             name="Dashboard"
             component={Dashboard}
             options={{ headerBackVisible: false }}
+          />
+          <Stack.Screen
+            name="DeliveryForm"
+            component={DeliveryForm}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="DeliveryList"
+            component={DeliveryList}
+            options={{
+              headerShown: false,
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>
