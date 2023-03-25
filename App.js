@@ -25,9 +25,7 @@ export default function App() {
     <>
       <StatusBar style="dark" />
       <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Login"
-        >
+        <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
             name="Home"
             component={CategoriesScreen}
@@ -84,7 +82,11 @@ export default function App() {
           <Stack.Screen name="Signup" component={Signup} />
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="Users" component={Users} />
-          <Stack.Screen name="Dashboard" component={Dashboard} />
+          <Stack.Screen
+            name="Dashboard"
+            component={Dashboard}
+            options={{ headerBackVisible: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>

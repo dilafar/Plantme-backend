@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { IconButton, Icon, NativeBaseProvider } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const Dashboard = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
@@ -35,7 +36,12 @@ export const Dashboard = ({ navigation }) => {
     return (
       <View style={styles.tile}>
         <IconButton
-          onPress={() => navigation.navigate(path)}
+          onPress={async () => {
+            if (path === "Login") {
+              await AsyncStorage.removeItem("token");
+            }
+            navigation.navigate(path);
+          }}
           icon={<Icon as={MaterialCommunityIcons} name={icon} />}
           borderRadius="full"
           _icon={{
