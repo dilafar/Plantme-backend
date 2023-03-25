@@ -8,6 +8,8 @@ import ShowSingleInquiryScreen from "./screens/inquiry-screens/ShowSingleInquiry
 import AddInquiryScreen from "./screens/inquiry-screens/AddInquiryScreen";
 import UpdateInquiryScreen from "./screens/inquiry-screens/UpdateInquiryScreen";
 import ViewInquiryPoliciesScreen from "./screens/inquiry-screens/ViewInquiryPoliciesScreen";
+import CategoriesScreenCustomer from "./screens/CategoriesScreenCustomer";
+import PlantOverviewCustomer from "./screens/PlantOverviewCustomer";
 import AddIcon from "./components/AddIcon";
 import AddPlants from "./screens/AddPlants";
 import { Login } from "./screens/Login";
@@ -24,12 +26,6 @@ export default function App() {
       <StatusBar style="dark" />
       <NavigationContainer>
         <Stack.Navigator
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: "blue",
-            },
-            headerTintColor: "white",
-          }}
           initialRouteName="Login"
         >
           <Stack.Screen
@@ -72,6 +68,18 @@ export default function App() {
             name="Inquiry Policies"
             component={ViewInquiryPoliciesScreen}
           />
+          <Stack.Screen
+            name="CustomerPlant"
+            component={CategoriesScreenCustomer}
+            options={{
+              title: "Plant Categories",
+              headerStyle: {
+                backgroundColor: "blue",
+              },
+              headerTintColor: "white",
+            }}
+          />
+          <Stack.Screen name="Plants" component={PlantOverviewCustomer} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Signup" component={Signup} />
           <Stack.Screen name="Profile" component={Profile} />

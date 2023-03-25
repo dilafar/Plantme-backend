@@ -2,13 +2,11 @@ import {CATEGORIES} from '../data/dummy-data';
 import { FlatList , ImageBackground, StyleSheet} from 'react-native';
 import CategoryGridTitle from '../components/CategoryGridTitle';
 
-
-
-function CategoriesScreen ({navigation}) {
+const CategoriesScreenCustomer = ({navigation}) => {
   function renderData(itemData){
     function pressHandler(){
       console.log(itemData.item.imageUrl);
-          navigation.navigate('Plant',{
+          navigation.navigate('Plants',{
             categoryId:itemData.item.id,
           });
     }
@@ -29,7 +27,7 @@ function CategoriesScreen ({navigation}) {
   )
 }
 
-export default CategoriesScreen;
+export default CategoriesScreenCustomer;
 
 const styles = StyleSheet.create({
   backgroundImage: {

@@ -2,16 +2,16 @@ import Category from '../models/category';
 import Meal from '../models/meal';
 
 export const CATEGORIES = [
-  new Category('c1', 'Italian', '#f5428d'),
-  new Category('c2', 'Quick & Easy', '#f54242'),
-  new Category('c3', 'Hamburgers', '#f5a442'),
-  new Category('c4', 'German', '#f5d142'),
-  new Category('c5', 'Light & Lovely', '#368dff'),
-  new Category('c6', 'Exotic', '#41d95d'),
-  new Category('c7', 'Breakfast', '#9eecff'),
-  new Category('c8', 'Asian', '#b9ffb0'),
-  new Category('c9', 'French', '#ffc7ff'),
-  new Category('c10', 'Summer', '#47fced')
+  new Category('c1', 'Trees', '#f5428d' , 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg/330px-Ash_Tree_-_geograph.org.uk_-_590710.jpg'),
+  new Category('c2', 'shrubs', '#9eecff', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg/330px-Ash_Tree_-_geograph.org.uk_-_590710.jpg'),
+  new Category('c3', 'vines', '#9eecff', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg/330px-Ash_Tree_-_geograph.org.uk_-_590710.jpg'),
+  new Category('c4', 'herbs', '#9eecff', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg/330px-Ash_Tree_-_geograph.org.uk_-_590710.jpg'),
+  new Category('c5', 'vegetables', '#368dff', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg/330px-Ash_Tree_-_geograph.org.uk_-_590710.jpg'),
+  new Category('c6', 'culinary herbs', '#41d95d', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg/330px-Ash_Tree_-_geograph.org.uk_-_590710.jpg'),
+  new Category('c7', 'medicinal plants', '#9eecff', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg/330px-Ash_Tree_-_geograph.org.uk_-_590710.jpg'),
+  new Category('c8', 'ornamental plants', '#b9ffb0', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg/330px-Ash_Tree_-_geograph.org.uk_-_590710.jpg'),
+  new Category('c9', 'tropical', '#ffc7ff', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg/330px-Ash_Tree_-_geograph.org.uk_-_590710.jpg'),
+  new Category('c10', 'temperate', '#47fced', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg/330px-Ash_Tree_-_geograph.org.uk_-_590710.jpg')
 ];
 
 export const MEALS = [

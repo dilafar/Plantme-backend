@@ -6,7 +6,7 @@ import UpdatePlants from "../screens/UpdatePlants";
 import DeleteDialog from "./DeleteDialog";
 import axios from 'axios';
 
-const PlantItem = ({title,imageUrl,duration , complexity, affortability, visibility, setvisibility,item,setcurrentPlant}) => {
+const PlantItem = ({title,imageUrl,price,category,plantid,description, visibility, setvisibility,item,setcurrentPlant}) => {
 
     const [showAlert , setShowAlert] = useState(false);
 
@@ -41,7 +41,7 @@ const PlantItem = ({title,imageUrl,duration , complexity, affortability, visibil
     }
 
     function deleteHandler(){
-        axios.delete(`https://plantme-backend.onrender.com/api/plant/${duration}`)
+        axios.delete(`https://plantme-backend.onrender.com/api/plant/${plantid}`)
             .then(response => {
                     console.log('Plant deleted successfully');
                     fetchPlants();
@@ -61,10 +61,7 @@ const PlantItem = ({title,imageUrl,duration , complexity, affortability, visibil
         fetch('https://plantme-backend.onrender.com/api/plant')
             .then(response => response.json())
             .then((data) => {
-                const value = data.data.filter((plant) => {
-                     return plant.category === complexity
-                });
-                console.log(value);
+                console.log(data);
             })
             .catch(error => console.error(error));
     };
@@ -88,11 +85,18 @@ const PlantItem = ({title,imageUrl,duration , complexity, affortability, visibil
             <Image source={{uri: imageUrl}}  style={styles.image}/>
         <Text style={styles.title}>{title}</Text>
         </View>
+        
+    
+        <View  style={styles.description}>
         <View style={styles.details}>
-            <Text style={styles.detailsItem}>{duration}</Text>
-            <Text style={styles.detailsItem}>{complexity}</Text>
-            <Text style={styles.detailsItem}>{affortability}</Text>
+            <Text style={styles.detailsItem}>{description}</Text>
+           
         </View>
+            <View style={styles.details}>
+            <Text style={styles.detailsItem}>Rs : {price}</Text>
+            </View>
+        </View>
+        
         <View style={styles.iconStyle}>
                 <DeleteIcon onPress={handleAlert} />
                 <UpdateIcon onPress={updateHandler}/>
@@ -129,18 +133,17 @@ image: {
 },
 title: {
     fontWeight: 'bold',
-    textAlign: 'center',
+    textAlign: 'left',
     fontSize:18,
-    margin: 8,
+    margin: 18,
 },
 details:{
     flexDirection: 'row',
-    alignItems: 'center',
-    padding: 8,
-    justifyContent: 'center',
+    textAlign: 'left',
+    padding: 10,
 },
 detailsItem:{
-        marginHorizontal: 4,
+        marginHorizontal: 12,
         fontSize: 12,
 
 },
@@ -161,4 +164,8 @@ iconStyle:{
     borderWidth: 1,
     padding: 20,
   },
+  description: {
+    flexDirection: 'column',
+  }
+  
 });
