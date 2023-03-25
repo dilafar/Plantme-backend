@@ -116,7 +116,7 @@ const UpdatePlants = ({visibility,setvisibility,currentPlant}) => {
 
 
 <TextInput
-    placeholder="Set Image"
+    placeholder="Image Url"
     value={imageUrl}
     onChangeText={setimageUrl}
     style={styles.textInput}
