@@ -88,8 +88,8 @@ export const Dashboard = ({ navigation }) => {
                     {user?.role === "ADMIN" && (
                       <Tile icon="shopping-outline" path="Home" title="Plants" />
                     )}
-                    {user?.role === "ADMIN" && (
-                      <Tile icon="truck-delivery" path="Home" title="Delivery" />
+                    {user?.role === "CONSUMER" && (
+                      <Tile icon="truck-delivery" path="DeliveryList" title="Delivery" />
                     )}
                     {user?.role === "ADMIN" && (
                       <Tile icon="disqus" path="PlantMe Inquiries" title="Inquiries" />
