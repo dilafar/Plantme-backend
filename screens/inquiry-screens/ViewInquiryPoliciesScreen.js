@@ -10,7 +10,7 @@ const ViewInquiryPoliciesScreen = () => {
         <View style={styles.container}>
             <Text style={styles.title}>Inquiry Policies</Text>
             <Text style={styles.paragraph}>
-                This screen provides an overview of the inquiry policies of our organization.
+                In here we provide an overview of the inquiry policies of our organization.
             </Text>
             <Text style={styles.subTitle}>Privacy Policy</Text>
             <Text style={styles.paragraph}>
