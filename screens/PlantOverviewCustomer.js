@@ -1,13 +1,11 @@
 import {useLayoutEffect , useState, useEffect} from 'react';
 import { View , FlatList, Text, StyleSheet,ActivityIndicator,ImageBackground} from "react-native";
-import PlantItem from "../components/PlantItem";
 import { CATEGORIES} from "../data/dummy-data";
-import UpdatePlants from './UpdatePlants';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import EmptyScreenView from '../components/EmptyScreenView';
+import PlantItemCustomer from '../components/PlantItemCustomer';
 
-
-const PlantsOverviewScreen = ({route , navigation}) => {
+const PlantOverviewCustomer = ({route , navigation}) => {
     const navigation2 = useNavigation();
     const isFocused = useIsFocused();
     const [plants, setplants] = useState([]);
@@ -72,17 +70,15 @@ const PlantsOverviewScreen = ({route , navigation}) => {
             plantid: item._id,
             description: item.description
         }
-            return <PlantItem {...plantItemprops} visibility={visibility}  setvisibility={setvisibility} item={item} setcurrentPlant={setcurrentPlant}/>
+            return <PlantItemCustomer {...plantItemprops} visibility={visibility}  setvisibility={setvisibility} item={item} setcurrentPlant={setcurrentPlant}/>
     }
 
-  
   return (
     <ImageBackground
     style={styles.backgroundImage}
     source={require('../assets/tree.jpg')}
 >
    <View style={styles.container}>
-           <UpdatePlants visibility={visibility} setvisibility={setvisibility} currentPlant={currentPlant}/>
            {isLoading ? <ActivityIndicator size="large" color="#0000ff" /> : null}
  
            {!isLoading && <FlatList data={plants.filter((plant) => {
@@ -102,7 +98,7 @@ const PlantsOverviewScreen = ({route , navigation}) => {
   )
 }
 
-export default PlantsOverviewScreen;
+export default PlantOverviewCustomer;
 
 const styles = StyleSheet.create({
     container: {
