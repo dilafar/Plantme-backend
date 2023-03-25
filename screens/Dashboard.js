@@ -86,16 +86,19 @@ export const Dashboard = ({ navigation }) => {
                   />
                   <View style={styles.row}>
                     {user?.role === "ADMIN" && (
-                      <Tile icon="shopping-outline" path="" title="Plants" />
+                      <Tile icon="shopping-outline" path="Home" title="Plants" />
                     )}
                     {user?.role === "ADMIN" && (
-                      <Tile icon="truck-delivery" path="" title="Delivery" />
+                      <Tile icon="truck-delivery" path="Home" title="Delivery" />
                     )}
                     {user?.role === "ADMIN" && (
                       <Tile icon="disqus" path="PlatMe Inquiries" title="Inquiries" />
                     )}
                     {user?.role === "CONSUMER" && (
                       <Tile icon="disqus" path="Create Inquiry" title="Inquiries" />
+                    )}
+                     {user?.role === "CONSUMER" && (
+                      <Tile icon="shopping-outline" path="CustomerPlant" title="Plants" />
                     )}
                     {user?.role === "SUPER_ADMIN" && (
                       <Tile icon="account-group" path="Users" title="Users" />
