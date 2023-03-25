@@ -11,6 +11,8 @@ import UpdateInquiryScreen from './screens/inquiry-screens/UpdateInquiryScreen';
 import ViewInquiryPoliciesScreen from './screens/inquiry-screens/ViewInquiryPoliciesScreen';
 import AddIcon from './components/AddIcon';
 import AddPlants from './screens/AddPlants';
+import CategoriesScreenCustomer from './screens/CategoriesScreenCustomer';
+import PlantOverviewCustomer from './screens/PlantOverviewCustomer';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +27,7 @@ export default function App() {
                },
                headerTintColor: 'white',
          }}>
+       
              <Stack.Screen name="Home" component={CategoriesScreen} options={({navigation}) => ({
                 title: 'Plant Categories',
                 headerStyle: {
@@ -39,6 +42,14 @@ export default function App() {
              <Stack.Screen name="AddPlant" component={AddPlants} options={{
                 presentation: 'modal'
              }}/>
+                <Stack.Screen name="CustomerPlant" component={CategoriesScreenCustomer} options={{
+                title: 'Plant Categories',
+                headerStyle: {
+                   backgroundColor: 'blue'
+                },
+                headerTintColor: 'white',
+             }}/>
+             <Stack.Screen name="Plants" component={PlantOverviewCustomer}/>
              <Stack.Screen name="PlatMe Inquiries" component={ShowAllInquiriesScreen} />
              <Stack.Screen name="Show Inquiry" component={ShowSingleInquiryScreen} />
              <Stack.Screen name="Create Inquiry" component={AddInquiryScreen} />

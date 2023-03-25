@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, TextInput,Text, Alert, TouchableOpacity, ImageBackground , Modal } from 'react-native';
+import { StyleSheet, View,Text, Alert, TouchableOpacity, ImageBackground , Modal ,TextInput} from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import ModalDropdown from 'react-native-modal-dropdown';
 import axios from 'axios';
+import { Picker } from '@react-native-picker/picker';
 
 const AddPlants = ({ navigation }) => {
 
@@ -24,6 +25,7 @@ const AddPlants = ({ navigation }) => {
             });
             fetchPlants();
             Alert.alert('Success', 'Plant has been submitted successfully');
+            Clear();
             navigation.goBack();
           } catch (error) {
             console.error(error);
@@ -42,54 +44,86 @@ const AddPlants = ({ navigation }) => {
             .catch(error => console.error(error));
     };
 
+    const validateAndSubmit = () => {
+            const choosenNumber = parseInt(price);
+            if(plantName.trim() === '' || description.trim() === '' || category.trim() === '' || price.trim() === '' || imageUrl.trim() === '') {
+                Alert.alert('Error', 'Please fill in all the fields!');
+            }else if (isNaN(choosenNumber) || choosenNumber <= 0){
+                Alert.alert('Error', 'Price Must be valied Number!');
+            }else {
+                handleSubmit();
+            }
+    };
+
+    const Clear = () => {
+        setplantName('');
+        setdescription('');
+        setcategory('');
+        setprice('');
+        setimageUrl('');
+    };
+
   return (
    
     <ImageBackground
     style={styles.backgroundImage}
-    source={require('../assets/bg-add.jpg')}
+    source={require('../assets/tree.jpg')}
 >
 <View style={styles.container}>
-<Text style={styles.title}>We'll contact you!</Text>
-<Input
+<Text style={styles.title}></Text>
+<TextInput
     placeholder="Plant Name"
     value={plantName}
     onChangeText={setplantName}
-    style={styles.input}
+    style={styles.textInput}
 />
 
-<Input
+<TextInput
     placeholder="Plant Price"
     value={price}
     onChangeText={setprice}
-    style={styles.input}
+    style={styles.textInput}
 />
 
-<ModalDropdown
-    options={['c1', 'c2', 'c3']}
-    onSelect={(index, value) => setcategory(value)}
-    style={styles.modelDropdown}
-    textStyle={{ fontSize: 16 }}
-    dropdownTextStyle={{ fontSize: 16 }}
-    dropdownStyle={styles.dropdown}
-    defaultValue={'Select Type'}
-/>
-<Input
+<Picker
+        selectedValue={category}
+        onValueChange={(itemValue, itemIndex) =>
+          setcategory(itemValue)
+        }
+        style={styles.textInput}
+      >
+        <Picker.Item label="Trees" value="c1" />
+        <Picker.Item label="shrubs" value="c2" />
+        <Picker.Item label="vines" value="c3" />
+        <Picker.Item label="herbs" value="c4" />
+        <Picker.Item label="vegetables" value="c5" />
+        <Picker.Item label="culinary herbs" value="c6" />
+        <Picker.Item label="medicinal plants" value="c7" />
+        <Picker.Item label="ornamental plants" value="c8" />
+        <Picker.Item label="tropical" value="c9" />
+        <Picker.Item label="temperate" value="c10" />
+      </Picker>
+
+
+<TextInput
     placeholder="Set Image"
     value={imageUrl}
     onChangeText={setimageUrl}
-    style={styles.input}
+    style={styles.textInput}
 />
-<Input
+<TextInput
     placeholder="Description"
     value={description}
     onChangeText={setdescription}
-    style={styles.input}
+    style={styles.textInput}
     multiline={true}
     numberOfLines={3}
 />
+<View style={styles.button}>
+<Button title="Submit" onPress={validateAndSubmit} style={styles.button} />
+</View>
 
-<View style={styles.horizontalLine} />
-<Button title="Submit" onPress={handleSubmit} style={styles.button} />
+
 
 </View>
 </ImageBackground>
@@ -103,11 +137,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
+       
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
+        marginTop: 15,
         textAlign: "center",
     },
     input: {
@@ -138,7 +174,10 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     button: {
-        marginTop: 20,
+        marginTop: 30,
+        width: '50%',
+        marginLeft: 20,
+       
     },
     dropdown: {
         width: '100%',
@@ -152,5 +191,25 @@ const styles = StyleSheet.create({
         flex: 1,
         resizeMode: 'cover', // or 'stretch'
     },
+    textInput: {
+        borderWidth: 1,
+        borderColor: '#cccccc',
+        marginLeft: 20,
+        padding: 10,
+        width: '90%',
+        marginTop: 25,
+        borderRadius: 7,
+        borderColor: 'white',
+        backgroundColor: 'white',
+        color: '#120438',
+        elevation: 4,
+        shadowColor: "black",
+        shadowOpacity: 0.25,
+        shadowRadius: 8,
+        shadowOffset: {width:0 , height: 2},
+        overflow: "hidden",
+        fontSize: 16,
+
+    }
 
 });

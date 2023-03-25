@@ -3,6 +3,7 @@ import { StyleSheet, View, TextInput,Text, Alert, TouchableOpacity, ImageBackgro
 import { Input, Button } from 'react-native-elements';
 import ModalDropdown from 'react-native-modal-dropdown';
 import axios from 'axios';
+import { Picker } from '@react-native-picker/picker';
 
 
 const UpdatePlants = ({visibility,setvisibility,currentPlant}) => {
@@ -58,60 +59,83 @@ const UpdatePlants = ({visibility,setvisibility,currentPlant}) => {
         setvisibility(false);
     };
 
+    
+    const validateAndSubmit = () => {
+        const choosenNumber = parseInt(price);
+        if(plantName.trim() === '' || description.trim() === '' || category.trim() === '' || price.trim() === '' || imageUrl.trim() === '') {
+            Alert.alert('Error', 'Please fill in all the fields!');
+        }else if (isNaN(choosenNumber) || choosenNumber <= 0){
+            Alert.alert('Error', 'Price Must be valied Number!');
+        }else {
+            handleSubmit();
+        }
+};
+
   return (
     <Modal visible={visibility} animationType='slide'>
 
    
     <ImageBackground
     style={styles.backgroundImage}
-    source={require('../assets/bg-add.jpg')}
+    source={require('../assets/tree.jpg')}
 >
 <View style={styles.container}>
-<Text style={styles.title}>We'll contact you!</Text>
-<Input
+<Text style={styles.title}>Update Plant Details</Text>
+<TextInput
     placeholder="Plant Name"
     value={plantName}
     onChangeText={setplantName}
-    style={styles.input}
+    style={styles.textInput}
 />
 
-<Input
+<TextInput
     placeholder="Plant Price"
     value={price}
     onChangeText={setprice}
-    style={styles.input}
+    style={styles.textInput}
 />
 
-<ModalDropdown
-    options={['c1', 'c2', 'c3']}
-    onSelect={(index, value) => setcategory(value)}
-    style={styles.modelDropdown}
-    textStyle={{ fontSize: 16 }}
-    dropdownTextStyle={{ fontSize: 16 }}
-    dropdownStyle={styles.dropdown}
-    defaultValue={'Select Type'}
-/>
-<Input
+<Picker
+        selectedValue={category}
+        onValueChange={(itemValue, itemIndex) =>
+          setcategory(itemValue)
+        }
+        style={styles.textInput}
+      >
+        <Picker.Item label="Trees" value="c1" />
+        <Picker.Item label="shrubs" value="c2" />
+        <Picker.Item label="vines" value="c3" />
+        <Picker.Item label="herbs" value="c4" />
+        <Picker.Item label="vegetables" value="c5" />
+        <Picker.Item label="culinary herbs" value="c6" />
+        <Picker.Item label="medicinal plants" value="c7" />
+        <Picker.Item label="ornamental plants" value="c8" />
+        <Picker.Item label="tropical" value="c9" />
+        <Picker.Item label="temperate" value="c10" />
+      </Picker>
+
+
+<TextInput
     placeholder="Set Image"
     value={imageUrl}
     onChangeText={setimageUrl}
-    style={styles.input}
+    style={styles.textInput}
 />
-<Input
+<TextInput
     placeholder="Description"
     value={description}
     onChangeText={setdescription}
-    style={styles.input}
+    style={styles.textInput}
     multiline={true}
     numberOfLines={3}
 />
 
-<View style={styles.horizontalLine} />
+
 
 </View>
 <View style={styles.buttonContainer}>
     <View style={styles.button}>
-            <Button title="Submit" onPress={handleSubmit}  />
+            <Button title="Update" onPress={validateAndSubmit}  />
     </View>
     <View style={styles.button}>
             <Button title="Cancel" onPress={endVisibility} />
@@ -133,6 +157,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
+        marginTop: 15,
         textAlign: "center",
     },
     input: {
@@ -163,8 +188,8 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     button: {
-        width: '40%',
-        marginHorizontal: 8
+        width: '38%',
+        marginHorizontal: 9
     },
     dropdown: {
         width: '100%',
@@ -180,8 +205,28 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flexDirection: 'row',
-        marginBottom: 100,
+        marginBottom: 150,
         justifyContent: 'center',
+    },
+    textInput: {
+        borderWidth: 1,
+        borderColor: '#cccccc',
+        marginLeft: 20,
+        padding: 10,
+        width: '90%',
+        marginTop: 25,
+        borderRadius: 7,
+        borderColor: 'white',
+        backgroundColor: 'white',
+        color: '#120438',
+        elevation: 4,
+        shadowColor: "black",
+        shadowOpacity: 0.25,
+        shadowRadius: 8,
+        shadowOffset: {width:0 , height: 2},
+        overflow: "hidden",
+        fontSize: 16,
+
     }
 
 });

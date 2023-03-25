@@ -1,5 +1,5 @@
 import { Pressable, View , Text ,StyleSheet, ImageBackground } from "react-native"
-
+//require('../assets/plant2.jpg')
 
 function CategoryGridTitle ({title,color,imageUrl,onPress}) {
   
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         image: {
           flex: 1,
           resizeMode: 'cover',
-          opacity: 0.7,
+          opacity: 0.6,
         },
         button:{
           flex: 1,
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         },
         title: {
           fontWeight: "bold",
-          fontSize: 18,
+          fontSize: 19,
         }
 
 });
