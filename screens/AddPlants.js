@@ -106,7 +106,7 @@ const AddPlants = ({ navigation }) => {
 
 
 <TextInput
-    placeholder="Set Image"
+    placeholder="Image  Url"
     value={imageUrl}
     onChangeText={setimageUrl}
     style={styles.textInput}

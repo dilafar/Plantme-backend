@@ -93,7 +93,7 @@ const PlantItem = ({title,imageUrl,price,category,plantid,description, visibilit
            
         </View>
             <View style={styles.details}>
-            <Text style={styles.detailsItem}>Rs : {price}</Text>
+            <Text style={styles.detailsItem}>Rs : {price}.00</Text>
             </View>
         </View>
         

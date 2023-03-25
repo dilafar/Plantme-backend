@@ -71,10 +71,6 @@ export default function App() {
             component={CategoriesScreenCustomer}
             options={{
               title: "Plant Categories",
-              headerStyle: {
-                backgroundColor: "blue",
-              },
-              headerTintColor: "white",
             }}
           />
           <Stack.Screen name="Plants" component={PlantOverviewCustomer} />
