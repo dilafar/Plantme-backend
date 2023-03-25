@@ -1,5 +1,3 @@
-// ShowAllInquiriesScreen.js
-
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Button, ImageBackground } from 'react-native';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
