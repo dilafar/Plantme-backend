@@ -53,7 +53,7 @@ export default function App() {
             }}
           />
           <Stack.Screen
-            name="PlatMe Inquiries"
+            name="PlantMe Inquiries"
             component={ShowAllInquiriesScreen}
           />
           <Stack.Screen

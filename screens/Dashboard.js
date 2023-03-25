@@ -92,7 +92,7 @@ export const Dashboard = ({ navigation }) => {
                       <Tile icon="truck-delivery" path="Home" title="Delivery" />
                     )}
                     {user?.role === "ADMIN" && (
-                      <Tile icon="disqus" path="PlatMe Inquiries" title="Inquiries" />
+                      <Tile icon="disqus" path="PlantMe Inquiries" title="Inquiries" />
                     )}
                     {user?.role === "CONSUMER" && (
                       <Tile icon="disqus" path="Create Inquiry" title="Inquiries" />
