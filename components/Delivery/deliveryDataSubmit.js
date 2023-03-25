@@ -26,7 +26,7 @@ const DeliveryForm = () => {
 
   const validateName = () => {
     if (!deliveryAddress) {
-      Alert.alert("Error", "Delivery Address is required.");
+      Alert.alert("Error", "DeliveryAddress is required.");
     }
   };
 
@@ -41,7 +41,7 @@ const DeliveryForm = () => {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://192.168.1.171:5000/api/delivery/",
+        "http://192.168.1.56:5000/api/delivery/",
         {
           itemName: itemName,
           quantity: quantity,
