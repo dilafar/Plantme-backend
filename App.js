@@ -42,7 +42,12 @@ export default function App() {
              <Stack.Screen name="AddPlant" component={AddPlants} options={{
                 presentation: 'modal'
              }}/>
-                <Stack.Screen name="CustomerPlant" component={CategoriesScreenCustomer} options={{
+             <Stack.Screen name="PlatMe Inquiries" component={ShowAllInquiriesScreen} />
+             <Stack.Screen name="Show Inquiry" component={ShowSingleInquiryScreen} />
+             <Stack.Screen name="Create Inquiry" component={AddInquiryScreen} />
+             <Stack.Screen name="Update Inquiry" component={UpdateInquiryScreen} />
+             <Stack.Screen name="Inquiry Policies" component={ViewInquiryPoliciesScreen} />
+             <Stack.Screen name="CustomerPlant" component={CategoriesScreenCustomer} options={{
                 title: 'Plant Categories',
                 headerStyle: {
                    backgroundColor: 'blue'
@@ -50,11 +55,6 @@ export default function App() {
                 headerTintColor: 'white',
              }}/>
              <Stack.Screen name="Plants" component={PlantOverviewCustomer}/>
-             <Stack.Screen name="PlatMe Inquiries" component={ShowAllInquiriesScreen} />
-             <Stack.Screen name="Show Inquiry" component={ShowSingleInquiryScreen} />
-             <Stack.Screen name="Create Inquiry" component={AddInquiryScreen} />
-             <Stack.Screen name="Update Inquiry" component={UpdateInquiryScreen} />
-             <Stack.Screen name="Inquiry Policies" component={ViewInquiryPoliciesScreen} />
          </Stack.Navigator>
     </NavigationContainer>
     </>
